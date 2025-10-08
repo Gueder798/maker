@@ -11,10 +11,10 @@ std::string execute(const std::string cmd,bool pass) {
     if (cmd.find("rm") | cmd.find("rd") && pass == false) {
         printf("The command %s need to delete file.", cmd.c_str());
         printf("Please type y to confirm:");
-        scanf("%s",&val);
+        scanf_s("%s",&val);
         if (val != "y") {
             printf("Abort. Stop.\n");
-            return;
+            return "";
         }
     }
 #else __LINUX__
@@ -24,7 +24,7 @@ std::string execute(const std::string cmd,bool pass) {
         scanf("%s", &val);
         if (val != "y") {
             printf("Abort. Stop.\n");
-            return;
+            return "";
         }
     }
 #endif
@@ -43,7 +43,7 @@ std::string execute(const std::string cmd,bool pass) {
     catch (...) {
         pclose(pipe);
         printf("Command execute failed. Stop.\n");
-        return;
+        return "";
     }
     pclose(pipe);
     return result;
