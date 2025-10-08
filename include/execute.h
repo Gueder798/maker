@@ -2,4 +2,4 @@
 
 #include "main.h"
 
-std::string execute(const std::string& cmd,bool pass);
+std::string sexecute(const std::string cmd,bool pass);

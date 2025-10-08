@@ -1,7 +1,7 @@
 #include "main.h"
 
 /* The define of popen and pclose are in main.h */
-std::string execute(const std::string cmd,bool pass) {
+std::string sexecute(const std::string cmd,bool pass) {
     //pass asked to confirm if is debug
     char* val;
     
@@ -11,7 +11,7 @@ std::string execute(const std::string cmd,bool pass) {
     if (cmd.find("rm") | cmd.find("rd") && pass == false) {
         printf("The command %s need to delete file.", cmd.c_str());
         printf("Please type y to confirm:");
-        scanf_s("%s",&val);
+        scanf("%s",&val);
         if (val != "y") {
             printf("Abort. Stop.\n");
             return "";
@@ -33,7 +33,7 @@ std::string execute(const std::string cmd,bool pass) {
     FILE* pipe = popen(cmd.c_str(), "r"); //Read command output, use r
     if (!pipe) {
         printf("Command excute failed. Stop.\n");
-        return;
+        return "";
     }
     try {
         while (fgets(buffer.data(), buffer.size(), pipe) != nullptr) {

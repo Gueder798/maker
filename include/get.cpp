@@ -47,9 +47,9 @@ int make(YAML::Node config,std::string target,bool pass) {
                 result = command.substr(pos + target.length());
             }
             else return -1;
-            make(config, result);
+            make(config, result,pass);
         }
-        std::string ret = execute(command, pass);
+        std::string ret = sexecute(command, pass);
         if (ret.empty() == 0) {
             printf("Error found in execute. All the tasks stop.\n");
             return -3;
