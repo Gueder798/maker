@@ -1,0 +1,19 @@
+#var:
+  #- CC : "gcc"
+  #- CFLAGS : "-Wall -Wextra -O2" #This is not in support
+
+tasks:
+  build:
+    - gcc -Wall -Wextra -O2 -o final main.c #Build command
+
+  clean:
+    - echo Cleaning up...
+    - rm -f final
+
+  run:
+    - echo Running the program...
+    - ./final
+  
+  default:
+    - tasks.build
+    - tasks.run

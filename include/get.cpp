@@ -28,3 +28,33 @@ std::vector<std::string> paser(YAML::Node config, const std::string& target) {
         return {};
     }
 }
+int make(YAML::Node config,std::string target,bool pass) {
+    std::vector<std::string> commands; //List for storage commands
+    std::string command; //Single command in commands
+    commands = paser(config, target);
+    if (size(commands) == 0) {
+        printf("Error found in config file. All the tasks stop.\n");
+        return -2;
+    }
+    printf("Done!!!");
+    
+    for (int i = 0; i < size(commands); i++) {
+        command = commands[i];
+        if (command.find("tasks.")) {
+            std::string result;
+            size_t pos = command.find("tasks.");
+            if (pos != std::string::npos) {
+                result = command.substr(pos + target.length());
+            }
+            else return -1;
+            make(config, result);
+        }
+        std::string ret = execute(command, pass);
+        if (ret.empty() == 0) {
+            printf("Error found in execute. All the tasks stop.\n");
+            return -3;
+        }
+        printf(ret.c_str()); //From std::string to char*
+    }
+    return 0;
+}

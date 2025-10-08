@@ -2,12 +2,34 @@
 // #define DEBUG //Define it when release Pre-Release
 
 int main(int argc,char *argv) {
+	std::string target;
+	if (argc == 1) {
+		printf("No actions input. Stop.\n");
+		return -1;
+	}
+	else if (argc == 2) {
+		if (stricmp((char*)argv[1], "make") == 0) {
+			printf("No target input.\n");
+			target = "default";
+		}
+		else if (stricmp((char*)argv[1], "make") != 0) {
+			printf("Unknown action. Stop.\n");
+			return -1;
+		}
+	} 
+	else if (argc == 3) {
+		if (stricmp((char*)argv[1], "make") == 0) {
+			target = argv[2];
+		}
+		else if (stricmp((char*)argv[1], "make") != 0) {
+			printf("Unknown action. Stop.\n");
+			return -1;
+		}
+	}
 
 	/*Config Part*/
 
 	YAML::Node config;
-	std::vector<std::string> commands; //List for storage commands
-	std::string command; //Single command in commands
 	bool flag = false; //Judge if loaded file
 	bool exemption = false;
 	bool pass = false;
@@ -41,24 +63,8 @@ int main(int argc,char *argv) {
 		printf("No config file found. Stop.\n");
 		return -1;
 	}
-	commands = paser(config,argv);
-	if (size(commands) == 0) {
-		printf("Error found in config file. All the tasks stop.\n");
-		return -2;
-	}
-	printf("Done!!!");
 	if (test == true && exemption == true) {
 		pass = true;
 	}
-	/* Execute Part*/
-
-	for (int i = 0; i < size(commands); i++) {
-		std::string ret = execute(command,pass);
-		if (ret.empty() == 0) {
-			printf("Error found in execute. All the tasks stop.\n");
-			return -3;
-		}
-		printf(ret.c_str()); //From std::string to char*
-	}
-	return 0;
+	make(config,target,pass);
 }
