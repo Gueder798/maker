@@ -1,12 +1,13 @@
 #include "include/main.h"
 // #define DEBUG //Define it when release Pre-Release
 
-int main(int argc,char *argv) {
+int main(int argc, char* argv) {
 	std::string target;
 	if (argc == 1) {
 		printf("No actions input. Stop.\n");
 		return -1;
 	}
+#ifdef WIN32
 	else if (argc == 2) {
 		if (stricmp((char*)argv[1], "make") == 0) {
 			printf("No target input.\n");
@@ -16,7 +17,7 @@ int main(int argc,char *argv) {
 			printf("Unknown action. Stop.\n");
 			return -1;
 		}
-	} 
+	}
 	else if (argc == 3) {
 		if (stricmp((char*)argv[1], "make") == 0) {
 			target = argv[2];
@@ -26,6 +27,27 @@ int main(int argc,char *argv) {
 			return -1;
 		}
 	}
+#else
+	else if (argc == 2) {
+		if (strcasecmp((char*)argv[1], "make") == 0) {
+			printf("No target input.\n");
+			target = "default";
+		}
+		else if (strcasecmp((char*)argv[1], "make") != 0) {
+			printf("Unknown action. Stop.\n");
+			return -1;
+		}
+	}
+	else if (argc == 3) {
+		if (strcasecmp((char*)argv[1], "make") == 0) {
+			target = argv[2];
+		}
+		else if (strcasecmp((char*)argv[1], "make") != 0) {
+			printf("Unknown action. Stop.\n");
+			return -1;
+		}
+	}
+#endif
 
 	/*Config Part*/
 
@@ -52,7 +74,7 @@ int main(int argc,char *argv) {
 		catch (...) {
 			continue;
 		}
-		printf("Config file %s loaded.\n",list[i]);
+		printf("Config file %s loaded.\n", list[i]);
 		if (list[i] == "test.yml") { // Check if is exeption file
 			bool exemption = true;
 		}
@@ -66,5 +88,5 @@ int main(int argc,char *argv) {
 	if (test == true && exemption == true) {
 		pass = true;
 	}
-	make(config,target,pass);
+	make(config, target, pass);
 }

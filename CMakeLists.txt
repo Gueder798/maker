@@ -9,7 +9,7 @@ endif()
 if (CMAKE_HOST_WIN32)
 	set(LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/yaml-cpp.lib) #For Windows
 elseif(CMAKE_HOST_LINUX)
-	set(LIB_PATH ./lib/yaml-cpp.a) #For Linux
+	set(LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/yaml-cpp.a) #For Linux
 endif()
 
 project ("maker")

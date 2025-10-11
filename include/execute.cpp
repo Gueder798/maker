@@ -8,7 +8,7 @@ std::string sexecute(const std::string cmd,bool pass) {
     /* Security Check Part*/
 
 #ifdef WIN32
-    if (cmd.find("rm") | cmd.find("rd") && pass == false) {
+    if (cmd.find("rm") | cmd.find("rd") && !pass) {
         printf("The command %s need to delete file.", cmd.c_str());
         printf("Please type y to confirm:");
         scanf("%s",&val);
@@ -18,7 +18,7 @@ std::string sexecute(const std::string cmd,bool pass) {
         }
     }
 #else __LINUX__
-    if (cmd.find("rm")) && pass == false) {
+    if (cmd.find("rm") && !pass) {
         printf("The command %s need to delete file.", cmd.c_str());
         printf("Please type y to confirm:");
         scanf("%s", &val);
