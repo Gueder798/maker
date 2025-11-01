@@ -55,7 +55,7 @@ int execute_command(const std::string& command) {
     }
 }
 
-int execute(std::vector<std::string> task, int depth = 0) {
+int execute(std::vector<std::string> task, int depth) {
     if (depth > 30){
         infoout(3);
         printf("Too deep recursion. Stop.\n");
