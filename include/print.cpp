@@ -34,14 +34,21 @@ void coloredout(const std::string& str, int color) {
     // Reset to default color
     std::cout << "\033[0m";
 }
+
+
+/*Note:
+Status 1: Info. Users can ignore it.
+Status 2: Warning. Users need to attention.
+Status 3: Error. Execution stop.
+*/
 void infoout(int tape) {
     if (tape == 1){
-        coloredout("I:", 46);
+        coloredout("I:", 46); //Info, Green
     }
     else if (tape == 2){
-        coloredout("W:", 208);
+        coloredout("W:", 208); //Warning, Orange
     }
     else if (tape == 3){
-        coloredout("E:", 196);
+        coloredout("E:", 196); //Error, Red
     }
 }

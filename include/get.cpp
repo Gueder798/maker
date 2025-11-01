@@ -1,7 +1,7 @@
 #include "main.h"
 
 YAML::Node yml_paser() {
-#ifdef DEBUG
+#ifdef DEBUG // Note: test.yml won't be checked in future.
     const std::vector<std::string> files = { "maker.yml", "Maker.yml", "maker.yaml", "Maker.yaml", "test.yml" };
 #else
     const std::vector<std::string> files = { "maker.yml", "Maker.yml", "maker.yaml", "Maker.yaml" };
@@ -71,7 +71,7 @@ std::vector<std::string> get_task(std::string target) {
     if (!tasks) {
         return std::vector<std::string>();
     }
-
+    // Note: Because the var target always has some unknown char, need to clean.
     std::string cleaned_target = cleaner(target);
     std::vector<std::string> task;
 

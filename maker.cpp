@@ -1,6 +1,6 @@
 /* Maker Gueder798
 This is under GNU GPLv3+ license.
-The file is the main function.*/
+The file has the main function.*/
 
 /*  If you cannot find a function, you can see
 include directory for more details.
@@ -16,7 +16,7 @@ Note:
 int main(int argc, char** argv) {
 
 #ifdef DEBUG // Check if is debug mode
-	infout(2);
+	infoout(2); //Fix problem here
 	printf("You are using debug release.\n"); // Give a warning
 #endif
 
@@ -25,13 +25,13 @@ int main(int argc, char** argv) {
 	//Colorful print will come out soon
 	if (argc == 1) {
 		infoout(3);
-		printf("No actions input. Stop.\n");
+		printf("No action input. Stop.\n");
 		return -1;
 	}
 	else if (argc == 2) {
 		if(strcmp(argv[1], "make") == 0) {
 			infoout(2);
-			printf("No actions input. Using default actions.\n");
+			printf("No target input. Using default target.\n");
 			target = "default";
 		}
 		else if (strcmp(argv[1], "-v") == 0) {
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
 			return 0;
 		}
 		else {
-			printf("E:Unkown actions. Stop.\n");
+			printf("E:Unkown action. Stop.\n");
 			return -1;
 		}
 	}
@@ -61,12 +61,14 @@ int main(int argc, char** argv) {
 			return 0;
 		}
 		else {
-			printf("E:Unkown actions. Stop.\n");
+			infoout(3);
+			printf("Unkown action. Stop.\n");
 			return -1;
 		}
 	}
 	else {
-		printf("E:Too many arguments. Stop.\n");
+		infoout(3);
+		printf("Too many arguments. Stop.\n");
 		return -1;
 	}
 
@@ -87,6 +89,7 @@ int main(int argc, char** argv) {
 	else if(res == -3){
 		infoout(1);
 		printf("Command execution failed.\n");
+		return -2;
 	}
 	return 0;
 }
