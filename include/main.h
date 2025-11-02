@@ -14,7 +14,7 @@
 #include <string.h>
 #include <Windows.h>
 #else
-#include <strings>
+#include <strings.h>
 #endif
 
 //#define DEBUG
