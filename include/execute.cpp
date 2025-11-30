@@ -74,7 +74,7 @@ int execute(std::vector<std::string> task, int depth) {
         }
         else{
             infoout(1);
-            printf("Executing sub-target: %s\n", target.c_str());
+            printf("Executing sub-task: %s\n", target.c_str());
             std::vector<std::string> sub_task = get_task(target);
             int res = execute(sub_task);
             if (res != 0){

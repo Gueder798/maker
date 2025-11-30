@@ -18,14 +18,14 @@ YAML::Node yml_paser() {
 
     if (!config) {
         infoout(3);
-        printf("Configuration files not found. Stop.\n");
+        printf("Configuration file not found. Stop.\n");
         return YAML::Node();
     }
 
     YAML::Node tasks = config["tasks"];
     if (!tasks) {
         infoout(3);
-        printf("'tasks' key not found in configuration. Stop.\n");
+        printf("'tasks' key not found in configuration file. Stop.\n");
         return YAML::Node();
     }
 
@@ -64,7 +64,7 @@ std::string cleaner(const std::string& input) {
 
 std::vector<std::string> get_task(std::string target) {
     infoout(1);
-    printf("Getting tasks for target: %s\n", target.c_str());
+    printf("Getting tasks for task: %s\n", target.c_str());
     YAML::Node tasks;
     tasks = yml_paser();
 
@@ -77,12 +77,12 @@ std::vector<std::string> get_task(std::string target) {
 
     if (!tasks.IsMap()){
         infoout(3);
-        printf("Invalid tasks format in configuration. Stop.\n");
+        printf("Invalid tasks format in configuration file. Stop.\n");
         return task;
     }
     if (tasks[cleaned_target].IsNull()) {
         infoout(3);
-        printf("Unkown target. Stop.\n");
+        printf("Unkown task. Stop.\n");
         return task;
     }
     

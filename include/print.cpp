@@ -29,7 +29,8 @@ Options:
     -v           Show version.
 )";
 }
-void coloredout(const std::string& str, int color) {
+
+inline void coloredout(const std::string& str, int color) {
     std::cout << "\033[38;5;" << color << "m" << str;
     // Reset to default color
     std::cout << "\033[0m";
