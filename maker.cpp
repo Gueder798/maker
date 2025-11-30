@@ -11,6 +11,7 @@ Note:
 3.If one function is used to show information, look for print.cpp.
 */
 
+
 #include "include/main.h"
 
 int main(int argc, char** argv) {
@@ -23,54 +24,57 @@ int main(int argc, char** argv) {
 	std::string target;
 
 	//Colorful print will come out soon
-	if (argc == 1) {
-		infoout(3);
-		printf("No action input. Stop.\n");
-		return -1;
-	}
-	else if (argc == 2) {
-		if(strcmp(argv[1], "make") == 0) {
-			infoout(2);
-			printf("No target input. Using default target.\n");
-			target = "default";
-		}
-		else if (strcmp(argv[1], "-v") == 0) {
-			about();
-			return 0;
-		}
-		else if (strcmp(argv[1], "-h") == 0) {
-			usage();
-			return 0;
-		}
-		else {
-			printf("E:Unkown action. Stop.\n");
-			return -1;
-		}
-	}
-	else if (argc == 3) {
-		if (strcmp(argv[1], "make") == 0) {
-			target = argv[2];
-			printf("%s\n",argv[2]);
-		}
-		else if (strcmp(argv[1], "-h") == 0) {
-			about();
-			return 0;
-		}
-		else if (strcmp(argv[1], "-v") == 0) {
-			usage();
-			return 0;
-		}
-		else {
-			infoout(3);
-			printf("Unkown action. Stop.\n");
-			return -1;
-		}
-	}
-	else {
-		infoout(3);
-		printf("Too many arguments. Stop.\n");
-		return -1;
-	}
+    switch (argc) {
+    case 1:
+        infoout(3);
+        printf("No action input. Stop.\n");
+        return -1;
+
+    case 2:
+        if (strcmp(argv[1], "make") == 0) {
+            infoout(2);
+            printf("No task input. Using default task.\n");
+            target = "default";
+        }
+        else if (strcmp(argv[1], "-h") == 0) {
+            usage();
+            return 0;
+        }
+        else if (strcmp(argv[1], "-v") == 0) {
+            about();
+            return 0;
+        }
+        else {
+            infoout(3);
+            printf("Invalid argument: %s\n", argv[1]);
+            return -1;
+        }
+        break;
+
+    case 3:
+        if (strcmp(argv[1], "make") == 0) {
+            target = argv[2];
+        }
+        else if (strcmp(argv[1], "-h") == 0) {
+            usage();
+            return 0;
+        }
+        else if (strcmp(argv[1], "-v") == 0) {
+            about();
+            return 0;
+        }
+        else {
+            infoout(3);
+            printf("Invalid argument: %s\n", argv[1]);
+            return -1;
+        }
+        break;
+
+    default:
+        infoout(3);
+        printf("Too many arguments. Stop.\n");
+        return -1;
+    }
 
 	std::vector<std::string> list;
 
