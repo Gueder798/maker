@@ -1,6 +1,6 @@
 #include "main.h"
 
-std::string ver = "0.1";
+std::string ver = "1.0";
 
 void about() {
     printf("maker %s",ver.c_str());
