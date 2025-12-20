@@ -6,5 +6,5 @@
 - **[yaml-cpp]**: MIT License (Copyright 2025 jbeder)  
 - **maker**: GNU GPL v3+ (Copyright 2025 Gueder)  
 <br>
-MIT license, see LICENSE-MIT,  
+MIT license, see depends/yaml-cpp/LICENSE,  
 GNU GPL v3 license, see LICENSE  
