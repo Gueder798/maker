@@ -1,4 +1,4 @@
-#include "main.h"
+﻿#include "main.h"
 
 int execute_command(const std::string& command) {
     infoout(1);

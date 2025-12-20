@@ -1,4 +1,4 @@
-/* Maker Gueder798
+﻿/* Maker Gueder798
 This is under GNU GPLv3+ license.
 The file has the main function.*/
 

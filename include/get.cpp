@@ -1,4 +1,4 @@
-#include "main.h"
+﻿#include "main.h"
 
 YAML::Node yml_paser() {
 #ifdef DEBUG // Note: test.yml won't be checked in future.
