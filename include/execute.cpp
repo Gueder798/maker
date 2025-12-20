@@ -1,4 +1,4 @@
-#include "main.h"
+﻿#include "main.h"
 
 int execute_command(const std::string& command) {
     infoout(1);
@@ -64,6 +64,7 @@ int execute(std::vector<std::string> task, int depth) {
     for (int i = 0; i < task.size(); i++) {
         std::string target = command_paser(task[i]);
         if(target == "123" && !target.empty()){ 
+			/* Direct command execute */
             printf("%d\n",i);
             infoout(1);
             printf("Executing direct command.\n");
@@ -73,6 +74,7 @@ int execute(std::vector<std::string> task, int depth) {
             }
         }
         else{
+            /* Sub-task execute */
             infoout(1);
             printf("Executing sub-task: %s\n", target.c_str());
             std::vector<std::string> sub_task = get_task(target);

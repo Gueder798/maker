@@ -1,4 +1,4 @@
-#include "main.h"
+﻿#include "main.h"
 
 YAML::Node yml_paser() {
 #ifdef DEBUG // Note: test.yml won't be checked in future.
@@ -89,6 +89,7 @@ std::vector<std::string> get_task(std::string target) {
     YAML::Node list = tasks[cleaned_target];
 
     for (int i = 0; i < list.size(); i++) {
+        /* Add task */
         infoout(1);
         printf("Adding task: %s\n", list[i].as<std::string>().c_str());
         task.push_back(list[i].as<std::string>());

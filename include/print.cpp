@@ -1,4 +1,4 @@
-#include "main.h"
+﻿#include "main.h"
 
 std::string ver = "0.1";
 
@@ -31,6 +31,7 @@ Options:
 }
 
 inline void coloredout(const std::string& str, int color) {
+	// Attention: Some systems may not support ANSI escape codes.
     std::cout << "\033[38;5;" << color << "m" << str;
     // Reset to default color
     std::cout << "\033[0m";

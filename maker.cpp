@@ -1,4 +1,4 @@
-/* Maker Gueder798
+﻿/* Maker Gueder798
 This is under GNU GPLv3+ license.
 The file has the main function.*/
 
@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
             infoout(2);
             printf("No task input. Using default task.\n");
             target = "default";
+            break;
         }
         else if (strcmp(argv[1], "-h") == 0) {
             usage();
@@ -54,6 +55,7 @@ int main(int argc, char** argv) {
     case 3:
         if (strcmp(argv[1], "make") == 0) {
             target = argv[2];
+            break;
         }
         else if (strcmp(argv[1], "-h") == 0) {
             usage();
