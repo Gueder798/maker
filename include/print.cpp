@@ -1,6 +1,6 @@
 ﻿#include "main.h"
 
-std::string ver = "0.1";
+std::string ver = "1.1";
 
 void about() {
     printf("maker %s",ver.c_str());
@@ -48,9 +48,9 @@ void infoout(int tape) {
         coloredout("I:", 46); //Info, Green
     }
     else if (tape == 2){
-        coloredout("W:", 208); //Warning, Orange
+        coloredout("Warning at: ", 208); //Warning, Orange
     }
     else if (tape == 3){
-        coloredout("E:", 196); //Error, Red
+        coloredout("Error at: ", 196); //Error, Red
     }
 }

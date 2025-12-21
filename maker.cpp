@@ -27,12 +27,14 @@ int main(int argc, char** argv) {
     switch (argc) {
     case 1:
         infoout(3);
+        printf("\n  Command: \n  %s\n",argv[0]);
         printf("No action input. Stop.\n");
         return -1;
 
     case 2:
         if (strcmp(argv[1], "make") == 0) {
             infoout(2);
+            printf("\n  Command: \n  %s %s\n",argv[0],argv[1]);
             printf("No task input. Using default task.\n");
             target = "default";
             break;
@@ -47,7 +49,14 @@ int main(int argc, char** argv) {
         }
         else {
             infoout(3);
-            printf("Invalid argument: %s\n", argv[1]);
+            /* Print command*/
+            //Start
+            printf("\n  Command:");
+            for (int i = 0; i < argc; i++) {
+                printf(" %s", argv[i]);
+            }
+            //End
+            printf("\nInvalid argument: %s\n", argv[1]);
             return -1;
         }
         break;
@@ -67,20 +76,46 @@ int main(int argc, char** argv) {
         }
         else {
             infoout(3);
-            printf("Invalid argument: %s\n", argv[1]);
+            /* Print command*/
+            //Start
+            printf("\n  Command:");
+            for (int i = 0; i < argc; i++) {
+                printf(" %s",argv[i]);
+            }
+            //End
+            printf("\nInvalid argument: %s\n", argv[1]);
             return -1;
         }
         break;
 
     default:
         infoout(3);
-        printf("Too many arguments. Stop.\n");
+        /* Print command*/
+            //Start
+        printf("\n  Command:");
+        for (int i = 0; i < argc; i++) {
+            printf(" %s", argv[i]);
+        }
+        //End
+        printf("\nToo many arguments. Stop.\n");
         return -1;
     }
 
 	std::vector<std::string> list;
 
 	list = get_task(target);
+    if (list.size() == 0) {
+        infoout(3);
+        /* Print command*/
+            //Start
+        printf("\n  Command:");
+        for (int i = 0; i < argc; i++) {
+            printf(" %s", argv[i]);
+        }
+        //End
+        printf("\nUnknown task: %s", target.c_str());
+        return -1;
+    }
 	int res = execute(list);
 
 	if (res == 0) {

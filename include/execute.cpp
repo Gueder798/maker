@@ -10,6 +10,7 @@ int execute_command(const std::string& command) {
 #endif
     if (!pipe) {
         infoout(3);
+        printf("System problem.\n");
         printf("Try to popen. Failed. Stop.\n");
         return -1;
     }
@@ -29,6 +30,7 @@ int execute_command(const std::string& command) {
         pclose(pipe);
 #endif
         infoout(3);
+        printf("System problem.\n");
         printf("Error during command execution. Stop.\n");
         return -2;
     }
@@ -41,6 +43,7 @@ int execute_command(const std::string& command) {
 #endif
     if (return_code == -1) {
         infoout(3);
+        printf("System problem.\n");
         printf("Try to pclose. Failed. Stop.\n");
         return -3;
     }
@@ -50,6 +53,7 @@ int execute_command(const std::string& command) {
     }
     else {
         infoout(3);
+        printf("\n  %s\n", command.c_str());
         printf("Command execute error with code %d. Stop.\n", return_code);
         return return_code;
     }
