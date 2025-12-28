@@ -17,29 +17,29 @@ YAML::Node yml_paser() {
     }
 
     if (!config) {
-        infoout(3);
+        info_out(3);
         printf("Configuration file not found. Stop.\n");
         return YAML::Node();
     }
 
     YAML::Node tasks = config["tasks"];
     if (!tasks) {
-        infoout(3);
+        info_out(3);
         printf("'tasks' key not found in configuration file. Stop.\n");
         return YAML::Node();
     }
 
     // Check if default in tasks
     if (!tasks["default"]) {
-        infoout(2);
+        info_out(2);
         printf("No 'default' task found. Continuing execution.\n");
     }
 
     return tasks;
 }
 
-std::string command_paser(std::string command) {
-    infoout(1);
+std::string command_paser(const std::string& command) {
+    info_out(1);
     printf("Parsing command: %s\n", command.c_str());
     std::string target;
     if (command.find("tasks.") != std::string::npos) {
@@ -49,7 +49,6 @@ std::string command_paser(std::string command) {
     return "123";
 }
 
-#include <string>
 
 std::string cleaner(const std::string& input) {
     size_t newline_pos = input.find('\n');
@@ -62,8 +61,8 @@ std::string cleaner(const std::string& input) {
     return input;
 }
 
-std::vector<std::string> get_task(std::string target) {
-    infoout(1);
+std::vector<std::string> get_task(const std::string& target) {
+    info_out(1);
     printf("Getting tasks for task: %s\n", target.c_str());
     YAML::Node tasks;
     tasks = yml_paser();
@@ -76,12 +75,12 @@ std::vector<std::string> get_task(std::string target) {
     std::vector<std::string> task;
 
     if (!tasks.IsMap()){
-        infoout(3);
+        info_out(3);
         printf("Invalid tasks format in configuration file. Stop.\n");
         return task;
     }
     if (tasks[cleaned_target].IsNull()) {
-        infoout(3);
+        info_out(3);
         printf("Unkown task. Stop.\n");
         return task;
     }
@@ -90,7 +89,7 @@ std::vector<std::string> get_task(std::string target) {
 
     for (int i = 0; i < list.size(); i++) {
         /* Add task */
-        infoout(1);
+        info_out(1);
         printf("Adding task: %s\n", list[i].as<std::string>().c_str());
         task.push_back(list[i].as<std::string>());
     }

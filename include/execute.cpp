@@ -1,7 +1,7 @@
 ﻿#include "main.h"
 
 int execute_command(const std::string& command) {
-    infoout(1);
+    info_out(1);
     printf("Executing command: %s\n", command.c_str());
 #ifdef _WIN32
     FILE* pipe = _popen(command.c_str(), "r");
@@ -9,7 +9,7 @@ int execute_command(const std::string& command) {
     FILE* pipe = popen(command.c_str(), "r");
 #endif
     if (!pipe) {
-        infoout(3);
+        info_out(3);
         printf("System problem.\n");
         printf("Try to popen. Failed. Stop.\n");
         return -1;
@@ -29,7 +29,7 @@ int execute_command(const std::string& command) {
 #else
         pclose(pipe);
 #endif
-        infoout(3);
+        info_out(3);
         printf("System problem.\n");
         printf("Error during command execution. Stop.\n");
         return -2;
@@ -42,7 +42,7 @@ int execute_command(const std::string& command) {
     int return_code = pclose(pipe);
 #endif
     if (return_code == -1) {
-        infoout(3);
+        info_out(3);
         printf("System problem.\n");
         printf("Try to pclose. Failed. Stop.\n");
         return -3;
@@ -52,37 +52,37 @@ int execute_command(const std::string& command) {
         return 0;
     }
     else {
-        infoout(3);
-        printf("\n  %s\n", command.c_str());
-        printf("Command execute error with code %d. Stop.\n", return_code);
+        
         return return_code;
     }
 }
 
-int execute(std::vector<std::string> task, int depth) {
+int execute(const std::vector<std::string>& task, std::string target, int depth) {
     if (depth > 30){
-        infoout(3);
+        info_out(3);
         printf("Too deep recursion. Stop.\n");
         return -4;
     }
     for (int i = 0; i < task.size(); i++) {
-        std::string target = command_paser(task[i]);
-        if(target == "123" && !target.empty()){ 
+        std::string pass = command_paser(task[i]);
+        if(pass == "123" && !target.empty()){ 
 			/* Direct command execute */
-            printf("%d\n",i);
-            infoout(1);
-            printf("Executing direct command.\n");
             int res = execute_command(task[i]);
             if (res != 0){
-                return res;
+                info_out(3);
+                printf("\n  In task '%s':",target.c_str());
+                printf("\n    Command:");
+                printf("\n        %s\n", task[i].c_str());
+                printf("Command execute error with code %d. Stop.\n", res);
+                return 1;
             }
         }
         else{
             /* Sub-task execute */
-            infoout(1);
+            info_out(1);
             printf("Executing sub-task: %s\n", target.c_str());
             std::vector<std::string> sub_task = get_task(target);
-            int res = execute(sub_task);
+            int res = execute(sub_task, target);
             if (res != 0){
                 return res;
             }

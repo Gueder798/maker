@@ -30,12 +30,18 @@ Options:
 )";
 }
 
-inline void coloredout(const std::string& str, int color) {
+inline void colored_out(const std::string& str, int color) {
 	// Attention: Some systems may not support ANSI escape codes.
     std::cout << "\033[38;5;" << color << "m" << str;
     // Reset to default color
     std::cout << "\033[0m";
 }
+
+//inline void colored_out_extra(const std::string& str) {
+    //Same in colored_out
+//    std::cout << "\033[1;37m" << str;
+//    std::cout << "\033[0m";
+//}
 
 
 /*Note:
@@ -43,14 +49,32 @@ Status 1: Info. Users can ignore it.
 Status 2: Warning. Users need to attention.
 Status 3: Error. Execution stop.
 */
-void infoout(int tape) {
+void info_out(int tape) {
     if (tape == 1){
-        coloredout("I:", 46); //Info, Green
+        colored_out("I:", 255); //Info, White
+        printf("\n  ");
     }
     else if (tape == 2){
-        coloredout("Warning at: ", 208); //Warning, Orange
+        colored_out("Warning at: ", 208); //Warning, Orange
     }
     else if (tape == 3){
-        coloredout("Error at: ", 196); //Error, Red
+        colored_out("Error at: ", 196); //Error, Red
     }
+}
+void command_out(int argc, char**& argv, int status, int tape) {
+    info_out(status);
+    /* Print command*/
+    //Start
+    printf("\n  ");
+    if (tape == 1) {
+        printf("User Command: ");
+    }else if (tape == 2) {
+        printf("Command: ");
+    }
+    printf("\n    ");
+    for (int i = 0; i < argc; i++) {
+        printf(" %s", argv[i]);
+    }
+    printf("\n");
+    //End
 }

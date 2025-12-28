@@ -16,8 +16,15 @@ Note:
 
 int main(int argc, char** argv) {
 
+#ifdef _WIN32 //Enable ANSI Output
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD mode = 0;
+    GetConsoleMode(hOut, &mode);
+    SetConsoleMode(hOut, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+#endif
+
 #ifdef DEBUG // Check if is debug mode
-	infoout(2); //Fix problem here
+	info_out(2); //Fix problem here
 	printf("You are using debug release.\n"); // Give a warning
 #endif
 
@@ -26,15 +33,13 @@ int main(int argc, char** argv) {
 	//Colorful print will come out soon
     switch (argc) {
     case 1:
-        infoout(3);
-        printf("\n  Command: \n  %s\n",argv[0]);
+        command_out(argc, argv, 3, 1);
         printf("No action input. Stop.\n");
         return -1;
 
     case 2:
         if (strcmp(argv[1], "make") == 0) {
-            infoout(2);
-            printf("\n  Command: \n  %s %s\n",argv[0],argv[1]);
+            command_out(argc, argv, 2, 1);
             printf("No task input. Using default task.\n");
             target = "default";
             break;
@@ -48,15 +53,8 @@ int main(int argc, char** argv) {
             return 0;
         }
         else {
-            infoout(3);
-            /* Print command*/
-            //Start
-            printf("\n  Command:");
-            for (int i = 0; i < argc; i++) {
-                printf(" %s", argv[i]);
-            }
-            //End
-            printf("\nInvalid argument: %s\n", argv[1]);
+            command_out(argc, argv, 3, 1);
+            printf("Invalid argument: %s\n", argv[1]);
             return -1;
         }
         break;
@@ -75,29 +73,15 @@ int main(int argc, char** argv) {
             return 0;
         }
         else {
-            infoout(3);
-            /* Print command*/
-            //Start
-            printf("\n  Command:");
-            for (int i = 0; i < argc; i++) {
-                printf(" %s",argv[i]);
-            }
-            //End
-            printf("\nInvalid argument: %s\n", argv[1]);
+            command_out(argc, argv,3, 1);
+            printf("Invalid argument: %s\n", argv[1]);
             return -1;
         }
         break;
 
     default:
-        infoout(3);
-        /* Print command*/
-            //Start
-        printf("\n  Command:");
-        for (int i = 0; i < argc; i++) {
-            printf(" %s", argv[i]);
-        }
-        //End
-        printf("\nToo many arguments. Stop.\n");
+        command_out(argc, argv, 3, 1);
+        printf("Too many arguments. Stop.\n");
         return -1;
     }
 
@@ -105,32 +89,18 @@ int main(int argc, char** argv) {
 
 	list = get_task(target);
     if (list.size() == 0) {
-        infoout(3);
-        /* Print command*/
-            //Start
-        printf("\n  Command:");
-        for (int i = 0; i < argc; i++) {
-            printf(" %s", argv[i]);
-        }
-        //End
-        printf("\nUnknown task: %s", target.c_str());
+        command_out(argc, argv, 3, 1);
+        printf("Unknown task: %s", target.c_str());
         return -1;
     }
-	int res = execute(list);
+	int res = execute(list, target);
 
 	if (res == 0) {
-		infoout(1);
+		info_out(1);
 		printf("All tasks executed successfully.\n");
 	}
-	else if(res == -1 || res == -2 || res == -4){
-		infoout(1);
-		printf("Execution errors decteted.\n");
+	else if(res == 1){
 		return -1;
-	}
-	else if(res == -3){
-		infoout(1);
-		printf("Command execution failed.\n");
-		return -2;
 	}
 	return 0;
 }
